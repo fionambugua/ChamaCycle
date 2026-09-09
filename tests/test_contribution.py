@@ -26,5 +26,25 @@ def test_contribution_store_attribute():
     assert contribution.month == "January"
 
 def test_new_contribution_added_to_all_contributions():
-    member = 
+    member = FakeMember("Asha")
+    chama = FakeChama("Umoja")
+
+    contribution = Contribution(member, chama, 500, "January")
+
+    assert contribution in Contribution.all_contributions
+    assert len(Contribution.all_contributions) == 1
+
+def test_contribution_rejects_negative_amount():
+    member = FakeMember("Asha")
+    chama = FakeChama("Umoja")
+ 
+    with pytest.raises(ValueError):
+        Contribution(member, chama, -100, "January")
+
+def test_contribution_rejects_zero_amount():
+    member = FakeMember("Asha")
+    chama = FakeChama("Umoja")
+ 
+    with pytest.raises(ValueError):
+        Contribution(member, chama, 0, "January")
     
