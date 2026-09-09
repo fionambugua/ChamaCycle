@@ -118,5 +118,16 @@ def test_total_for_chama_is_zero_with_no_contributions():
  
     assert total == 0
 
+def test_total_for_chama_ignores_other_chamas():
+    asha = FakeMember("Asha")
+    umoja = FakeChama("Umoja")
+    tuungane = FakeChama("Tuungane")
+ 
+    Contribution(asha, umoja, 500, "January")
+    Contribution(asha, tuungane, 1000, "January")
+ 
+    assert Contribution.total_for_chama(umoja) == 500
+    assert Contribution.total_for_chama(tuungane) == 1000
+
  
     
