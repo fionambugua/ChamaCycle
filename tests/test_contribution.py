@@ -47,4 +47,76 @@ def test_contribution_rejects_zero_amount():
  
     with pytest.raises(ValueError):
         Contribution(member, chama, 0, "January")
+
+def test_contribution_rejects_non_numeric_amount():
+    member = FakeMember("Asha")
+    chama = FakeChama("Umoja")
+ 
+    with pytest.raises(ValueError):
+        Contribution(member, chama, "five hundred", "January")
+
+def test_duplicate_member_and_month_is_flagged():
+    member = FakeMember("Asha")
+    chama = FakeChama("Umoja")
+ 
+    Contribution(member, chama, 500, "January")
+
+    with pytest.raises(ValueError):
+        Contribution(member, chama, 500, "January")
+
+def test_find_by_member_returns_only_that_members_contributions():
+    asha = FakeMember("Asha")
+    jeff = FakeMember("Jeff")
+    chama = FakeChama("Umoja")
+ 
+    Contribution(asha, chama, 500, "January")
+    Contribution(jeff, chama, 300, "January")
+    Contribution(asha, chama, 500, "February")
+ 
+    results = Contribution.find_by_member(asha)
+ 
+    assert len(results) == 2
+    assert all(c.member == asha for c in results)
+
+def test_find_by_member_returns_empty_list_when_none_exist():
+    asha = FakeMember("Asha")
+ 
+    results = Contribution.find_by_member(asha)
+ 
+    assert results == []
+ 
+ 
+def test_find_by_member_sorted_by_month_ascending():
+    asha = FakeMember("Asha")
+    chama = FakeChama("Umoja")
+
+    Contribution(asha, chama, 500, "March")
+    Contribution(asha, chama, 500, "January")
+    Contribution(asha, chama, 500, "February")
+ 
+    results = Contribution.find_by_member(asha)
+    months = [c.month for c in results]
+ 
+    assert months == ["January", "February", "March"]
+
+def test_total_for_chama_sums_all_contributions():
+    asha = FakeMember("Asha")
+    jeff = FakeMember("Jeff")
+    chama = FakeChama("Umoja")
+ 
+    Contribution(asha, chama, 500, "January")
+    Contribution(jeff, chama, 300, "January")
+ 
+    total = Contribution.total_for_chama(chama)
+ 
+    assert total == 800
+
+def test_total_for_chama_is_zero_with_no_contributions():
+    chama = FakeChama("Umoja")
+ 
+    total = Contribution.total_for_chama(chama)
+ 
+    assert total == 0
+
+ 
     
