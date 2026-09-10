@@ -16,4 +16,8 @@ class User:
     def _hash(password):
         return hashlib.sha256(password.encode()).hexdigest()
     
+    def check_password(self, password):
+        return self._password_hash is not None and self._password_hash == self._password_hash(password)
+    
+    
         
