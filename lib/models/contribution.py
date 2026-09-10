@@ -17,3 +17,10 @@ class Contribution:
         self.month = month
  
         Contribution.all_contributions.append(self)
+
+    @staticmethod
+    def _validate_amount(amount):
+        if not isinstance(amount, (int, float)) or isinstance(amount, bool):
+            raise ValueError("Contribution amount must be a number.")
+        if amount <= 0:
+            raise ValueError("Contribution amount must be positive.")
