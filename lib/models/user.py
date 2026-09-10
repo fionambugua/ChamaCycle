@@ -10,3 +10,10 @@ class User:
         self.password_hash(password) if password else None
         User.all.append(self)
         
+        
+        
+    @staticmethod
+    def _hash(password):
+        return hashlib.sha256(password.encode()).hexdigest()
+    
+        
