@@ -50,6 +50,7 @@ class Contribution:
         matches = [c for c in cls.all_contributions if c.member == member]
         return sorted(matches, key=lambda c: MONTH_ORDER.index(c.month))
 
+    @classmethod
     def total_for_chama(cls, chama):
         return sum(
             c.amount for c in cls.all_contributions if c.chama == chama
