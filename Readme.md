@@ -1,5 +1,10 @@
 # ChamaCycle
 
+## Authors
+Fiona Mbugua - fiona.mbugua@student.moringaschool.com
+Jeff Kibet - jeff.kibet@student.moringaschool.com
+Victor Boiwo - victor.boiwo@student.moringaschool.com
+
 **Know your cycle. Trust your circle.**
 
 A Python CLI-based chama (informal savings group) management system —
