@@ -14,3 +14,10 @@ def register_user(users, username, password, role):
         "role": role,
     })
     return True
+
+def login_user(users, username, password):
+    hashed = _hash_password(password)
+    for user in users:
+        if user["username"] == username and user["password"] == hashed:
+            return user
+    return None
