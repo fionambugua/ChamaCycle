@@ -19,5 +19,5 @@ class User:
     def check_password(self, password):
         return self._password_hash is not None and self._password_hash == self._password_hash(password)
     
-    
-        
+    def __repr__(self):
+        return f"<{self.__class__.__name__} {self.username} ({self.role})>"  
