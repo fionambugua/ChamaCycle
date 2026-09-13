@@ -5,4 +5,5 @@ class Admin(User):
         super().__init__(username=username, password=password, role="admin")
         
     
-    
+    def __repr__(self):
+        return f"<Admin {self.username}>"
